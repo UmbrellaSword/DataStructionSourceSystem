@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>课程实验</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <script src="../layui.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">数据结构资源管理平台</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="main.html">主页</a></li>
+            <li class="layui-nav-item"><a href="selectedexperiment.html">已选实验</a></li>
+
+            <li class="layui-nav-item"><a href="download.html">下载资源</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    腰果
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="person.html">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">数据结构资源</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">树</a></dd>
+                        <dd><a href="javascript:;">链表</a></dd>
+                        <dd><a href="javascript:;">栈和队列</a></dd>
+                        <dd><a href="">堆</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="experiment.html">课程实验</a></li>
+                <li class="layui-nav-item"><a href="question.html">网上答疑</a></li>
+                <li class="layui-nav-item"><a href="task.html">作业区</a></li>
+                <li class="layui-nav-item"><a href="test.html">习题自测</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div class="layui-card">
+            <div class="layui-card-header"style="color: #756868;border-radius: 2px 2px 0 0;
+    font-size: 16px;">个人资料</div>
+            <div class="layui-card-body">
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">学号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" required  lay-verify="required" placeholder="请输入您的学号" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" required  lay-verify="required" placeholder="请输入您的姓名" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">专业</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" required  lay-verify="required" placeholder="请输入您所在专业" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">Email</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" required  lay-verify="required" placeholder="请输入正确格式的邮箱" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">班级</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入您所在班级" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">密码</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">手机</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入您的手机号码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">老师</label>
+                        <div class="layui-input-block">
+                            <select name="city" lay-verify="">
+                                <option value="">请选择数据结构老师</option>
+                                <option value="010">宛艳萍</option>
+                                <option value="021">郭永芳</option>
+                                <option value="0571">石陆奎</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">修改</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <script>
+            //Demo
+            layui.use('form', function(){
+                var form = layui.form;
+                //监听提交
+                form.on('submit(formDemo)', function(data){
+                    layer.msg(JSON.stringify(data.field));
+                    return false;
+                });
+            });
+        </script>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        ©《数据结构》教学资源管理平台
+    </div>
+</div>
+
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>资源总览</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <script src="../layui.js"></script>
+    <script src="../jquery.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">数据结构资源管理平台</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="main.html">主页</a></li>
+            <li class="layui-nav-item"><a href="selectedexperiment.html">已选实验</a></li>
+
+            <li class="layui-nav-item"><a href="download.html">下载资源</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;" id="myselfid">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    腰果
+                </a>
+                <script>
+                    document.getElementById("myselfid").innerHTML = "学号" +
+                        sessionStorage.id;
+                </script>
+                <dl class="layui-nav-child">
+                    <dd><a href="person.html">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="login.html">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item"><a href="resource.html">数据结构资源</a></li>
+                <li class="layui-nav-item"><a href="experiment.html">课程实验</a></li>
+                <li class="layui-nav-item"><a href="question.html">网上答疑</a></li>
+                <li class="layui-nav-item"><a href="task.html">作业区</a></li>
+                <li class="layui-nav-item"><a href="test.html">习题自测</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+
+                    <table class="layui-table" id="main">
+                        <colgroup>
+                            <col width="100">
+                            <col width="300">
+                            <col width="300">
+                            <col width="300">
+                            <col width="200">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>名称</th>
+                            <th>上传时间</th>
+                            <th>上传教师</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>哈夫曼树</td>
+                            <td>2016-11-29</td>
+                            <td>张三</td>
+                            <td><button>下载</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>约瑟夫环</td>
+                            <td>2016-11-28</td>
+                            <td>8</td>
+                            <td><button>下载</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="layui-tab-item">2</div>
+                <div class="layui-tab-item">3</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        ©《数据结构》教学资源管理平台
+    </div>
+</div>
+
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+        $.ajax({
+            url:"/Resource/selectMyResource",
+            type:'post',
+            dataType:'text',
+            data:{id:sessionStorage.id},
+            success: function(data){
+                console.log(data);
+                var obj = JSON.parse(data);
+                $("#main tbody").html("");
+                for(var i = 0;i < obj.length;i++){
+                    //console.log(obj[i].name);
+                    var j=i+1;
+                    $("#main tbody").append('<tr><td>'+j+'</td><td>'+obj[i].name+'</td><td>'+obj[i].update_time+'</td><td>'+obj[i].update_teacher+'</td><td><a class="download" href="D:\\JavaProject\\spring\\src\\main\\resources\\upload\\'+obj[i].name+'" resname="'+obj[i].name+'" ">文件目录</a></td></tr>');
+                };
+                element.render('collapse');
+                $(".download").on("click",function () {
+
+                })
+            }
+        });
+    });
+</script>
+</body>
+</html>

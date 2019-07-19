@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>主页</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <script src="../layui.js"></script>
+    <script src="../jquery.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">数据结构资源管理平台</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="main.html">主页</a></li>
+            <li class="layui-nav-item"><a href="selectedexperiment.html">已选实验</a></li>
+
+            <li class="layui-nav-item"><a href="download.html">下载资源</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;" id="myselfid">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    腰果
+                </a>
+                <script>
+                    document.getElementById("myselfid").innerHTML = "学号" +
+                        sessionStorage.id;
+                </script>
+
+                <dl class="layui-nav-child">
+                    <dd><a href="person.html">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="login.html">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item"><a href="resource.html">数据结构资源</a></li>
+                <li class="layui-nav-item"><a href="experiment.html">课程实验</a></li>
+                <li class="layui-nav-item"><a href="question.html">网上答疑</a></li>
+                <li class="layui-nav-item"><a href="task.html">作业区</a></li>
+                <li class="layui-nav-item"><a href="test.html">习题自测</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body" id="mainbody">
+        <div style="padding: 3px 0 0 0;">
+            <div class="layui-card layadmin-header">
+                <div class="layui-breadcrumb" style="visibility: visible;">
+                </div>
+            </div>
+            <div class="layui-card" id="msglist">
+                <div class="layui-card-body">
+                    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this" whattable="allmessage">全部信息</li>
+                            <li whattable="notice">通知<span id="noticenum" class="layui-badge">0</span></li>
+                            <li whattable="letter">私信<span id="letternum" class="layui-badge layui-bg-orange">0</span></li>
+                        </ul>
+                        <div class="msglistbutton">
+                            <button class="layui-btn layui-btn-primary layui-btn-sm" data-events="del">删除</button>
+                            <button class="layui-btn layui-btn-primary layui-btn-sm" data-events="ready">标记已读</button>
+                            <button class="layui-btn layui-btn-primary layui-btn-sm" data-events="readyAll">全部已读</button>
+                        </div>
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show">
+                                <table class="layui-hide" id="allmessage"></table>
+                            </div>
+                            <div class="layui-tab-item">
+                                <table class="layui-hide" id="notice"></table>
+                            </div>
+                            <div class="layui-tab-item">
+                                <table class="layui-hide" id="letter"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card layui-hide layui-anim layui-anim-scale" id="msgdetail">
+                <div class="layui-card-body">
+                    <div class="layui-card layuiAdmin-msg-detail">
+                        <div>
+                            <div class="layui-card-header">
+                                <h1>{{ d.data.title }}</h1>
+                                <p>
+                                    <span>{{ layui.util.timeAgo(d.data.time) }}</span>
+                                </p>
+                            </div>
+                            <div class="layui-card-body layui-text">
+                                <div class="layadmin-text">
+                                    {{ d.data.content }}
+                                </div>
+
+                                <div style="padding-top: 35px;">
+                                    <a id="back" class="layui-btn layui-btn-primary layui-btn-sm">返回上级</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        ©《数据结构》教学资源管理平台
+    </div>
+
+    </div>
+
+
+</div>
+
+<script>
+    //JavaScript代码区域
+    $('#username').text(sessionStorage.id);
+
+        $.ajax({
+            url:"/Notice/Ifnew",
+            type:'post',
+            data:{Userid:sessionStorage.id},
+            dataType:'text',
+            success: function(data){
+                //console.log(data);
+                if(data === "有")
+                    $('#ifnew').removeClass('layui-hide');
+                else
+                    $('#ifnew').addClass('layui-hide');
+            }
+        });
+
+
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#allmessage'
+            ,url:'/Notice/selectNotice'
+            ,skin:"line"
+            ,page: true
+            ,limit: 10
+            ,limits: [10,15,20]
+            ,where:{Userid:sessionStorage.id,Type:"全部信息"}
+            ,cols: [[
+                {type:'checkbox'}
+                ,{field:'ifnew', width:70, title: '状态', templet: '#ifnewTpl'}
+                ,{field:'type', width:60, title: '类型'}
+                ,{field:'faqiren', width:110, title: '发件人',sort:true}
+                ,{field:'title', width:586,title: '标题内容', templet:'#titleTpl'}
+                ,{field:'time', width:240 ,title: '时间',sort:true,}
+            ]]
+
+        });
+
+        table.render({
+            elem: '#notice'
+            ,url:'/Notice/selectNotice'
+            ,skin:"line"
+            ,page: true
+            ,limit: 10
+            ,limits: [10,15,20]
+            ,where:{Userid:sessionStorage.id,Type:"通知"}
+            ,cols: [[
+                {type:'checkbox'}
+                ,{field:'ifnew', width:70, title: '状态', templet: '#ifnewTpl'}
+                //,{field:'Type', width:60, title: '类型'}
+                ,{field:'faqiren', width:110, title: '发件人',sort:true}
+                ,{field:'title', width:625, title: '标题内容', templet:'#titleTpl'}
+                ,{field:'time', width:240, title: '时间',sort:true}
+            ]]
+            ,done:function (res) {
+                $('#noticenum').text(res.newnum);
+            }
+        });
+
+        table.render({
+            elem: '#letter'
+            ,url:'/Notice/selectNotice'
+            ,skin:"line"
+            ,page: true
+            ,limit: 10
+            ,limits: [10,15,20]
+            ,where:{Userid:sessionStorage.id,Type:"私信"}
+            ,cols: [[
+                {type:'checkbox'}
+                ,{field:'ifnew', width:70, title: '状态', templet: '#ifnewTpl'}
+                //,{field:'Type', width:60, title: '类型'}
+                ,{field:'faqiren', width:110, title: '发件人',sort:true}
+                ,{field:'title', width:625, title: '标题内容', templet:'#titleTpl'}
+                ,{field:'time', width:240, title: '时间',sort:true}
+            ]]
+            ,done:function (res) {
+                $('#letternum').text(res.newnum);
+            }
+        });
+
+        $('.msglistbutton button').on("click",function () {
+            var event = $(this).attr('data-events');
+            console.log(event);
+            var litable = $('.layui-tab-title li[class="layui-this"]').attr('whattable');
+            console.log(litable);
+            var checkStatus = table.checkStatus(litable);
+            console.log(checkStatus.data); //获取选中行的数据
+            console.log(checkStatus.data.length); //获取选中行数量，可作为是否有选中行的条件
+            console.log(checkStatus.isAll ); //表格是否全选
+            console.log(JSON.stringify(checkStatus.data));
+            $.ajax({
+                url: "/Notice/magEvent",
+                type: 'post',
+                dataType: 'text',
+                data: {json:JSON.stringify(checkStatus.data),event:event,type:litable,Userid:sessionStorage.id},
+                success: function (data) {
+                    console.log(data);
+                    var obj = JSON.parse(data);
+                    if(obj.code === "1")
+                    {
+                        if(event === 'del')
+                            layer.msg(obj.msg);
+                        table.reload('allmessage',{
+                            url:'/Notice/selectNotice',
+                            method:'post',
+                            where:{Userid:sessionStorage.id,Type:"全部信息"}
+                        });
+                        table.reload('notice',{
+                            url:'/Notice/selectNotice',
+                            method:'post',
+                            where:{Userid:sessionStorage.id,Type:"通知"}
+                        });
+                        table.reload('letter',{
+                            url:'/Notice/selectNotice',
+                            method:'post',
+                            where:{Userid:sessionStorage.id,Type:"私信"}
+                        });
+                    }
+                    else
+                    if(event === 'del')
+                        layer.msg(obj.msg);
+                }
+            });
+        })
+    });
+</script>
+<script type="text/html" id="ifnewTpl">
+    {{#  if(d.ifnew === '是'){ }}
+    <img src="../images/other/newnotice.png" style="width: 21px;height: 21px;">
+    {{#  } else { }}
+    <img src="../images/other/oldnotice.png" style="width: 20px;height: 20px;">
+    {{#  } }}
+</script>
+<script type="text/html" id="titleTpl">
+    <a onclick="showmsgdetail('{{d.title}}','{{d.time}}','{{d.type}}','{{d.faqiren}}','{{d.noticetext}}','{{d.noticeid}}','{{d.ifnew}}')">{{d.title}}</a>
+</script>
+<script>
+    function showmsgdetail(title,time,type,faqiren,notice,noticeid,ifnew) {
+        console.log(title+time+type+faqiren+notice+noticeid+ifnew);
+        if(type === '通知')
+            $('#msgdetail h1').html('<img src="../images/other/notice.png" style="width: 25px;height: 25px;padding-right: 10px;">' + title);
+        else
+            $('#msgdetail h1').html('<img src="../images/other/letter.png" style="width: 23px;height: 23px;padding-right: 10px;">' + title);
+        $('#msgdetail p span').text(time);
+        $('#msgdetail .layadmin-text').html('<p>'+ notice + '</p><p>—— &nbsp&nbsp' + faqiren + '</p>');
+        $('#msglist').addClass('layui-hide');
+        $('#msgdetail').removeClass('layui-hide');
+        $.ajax({
+            url: "/Notice/magEvent",
+            type: 'post',
+            dataType: 'text',
+            data: {event:'readyone',Noticeid:noticeid},
+            success: function (data) {
+                console.log(noticeid);
+                console.log(data);
+                var obj = JSON.parse(data);
+                if(obj.code === "1")
+                {
+                    console.log(obj.msg);
+                    layui.use('table', function() {
+                        var table = layui.table;
+                        table.reload('allmessage', {
+                            url: '/Notice/selectNotice',
+                            method: 'post',
+                            where: {Userid: sessionStorage.id, Type: "全部信息"}
+                        });
+                        table.resize('allmessage');
+                        table.reload('notice', {
+                            url: '/Notice/selectNotice',
+                            method: 'post',
+                            where: {Userid: sessionStorage.id, Type: "通知"}
+                        });
+                        table.resize('notice');
+                        table.reload('letter', {
+                            url: '/Notice/selectNotice',
+                            method: 'post',
+                            where: {Userid: sessionStorage.id, Type: "私信"}
+                        });
+                        table.resize('letter');
+                    });
+                }
+                else
+                    layer.msg(obj.msg);
+            }
+        });
+    }
+    $('#back').on("click",function () {
+        $('#msgdetail').addClass('layui-hide');
+        $('#msglist').removeClass('layui-hide');
+    })
+</script>
+</body>
+</html>

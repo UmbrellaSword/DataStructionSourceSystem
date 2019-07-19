@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>作业区</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <script src="../layui.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">数据结构资源管理平台</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="teacher_main.html">主页</a></li>
+            <li class="layui-nav-item"><a href="teacher_publish_experiment.html">发布实验</a></li>
+
+
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;" id="myselfid">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    腰果
+                </a>
+                <script>
+                    document.getElementById("myselfid").innerHTML = "学号" +
+                        sessionStorage.id;
+                </script>
+                <dl class="layui-nav-child">
+                    <dd><a href="person.html">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="login.html">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item">
+                    <a class="" href="teacher_update_resource.html">数据结构资源</a>
+
+                </li>
+                <li class="layui-nav-item"><a href="teacher_experiment.html">课程实验</a></li>
+                <li class="layui-nav-item"><a href="teacher_question.html">网上答疑</a></li>
+                <li class="layui-nav-item"><a href="teacher_publish_task.html">作业区</a></li>
+                <li class="layui-nav-item"><a href="teacher_grade_in1.html">成绩录入</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this">宛艳萍</li>
+                <li>郭永芳</li>
+            </ul>
+            <div class="layui-tab-content" style="height: 100%;">
+                <div class="layui-tab-item layui-show"><div style="padding: 15px;">
+                    <div class="layui-collapse">
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title">2019年8月8日作业</h2>
+                            <div class="layui-colla-content layui-show">P14页1、2题
+                                <br/>
+                                <div class="layui-btn-group">
+                                    <button class="layui-btn">增加</button>
+                                    <button class="layui-btn">编辑</button>
+                                    <button class="layui-btn">删除</button>
+                                </div></div>
+
+                        </div>
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title">2019年9月8日作业</h2>
+                            <div class="layui-colla-content layui-show">P20页7、8 ppt上1、2、3
+                                <br/>
+                                <div class="layui-btn-group">
+                                    <button class="layui-btn">增加</button>
+                                    <button class="layui-btn">编辑</button>
+                                    <button class="layui-btn">删除</button>
+                                </div></div>
+
+                        </div>
+                    </div>
+
+                    <script>
+                        //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
+                        layui.use('element', function(){
+                            var element = layui.element;
+
+                            //…
+                        });
+                    </script>
+                </div></div>
+                <div class="layui-tab-item"><div style="padding: 15px;">
+                    <div class="layui-collapse">
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title">2019年8月18日作业</h2>
+                            <div class="layui-colla-content layui-show">P13页1、2、3题</div>
+                        </div>
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title">2019年9月8日作业</h2>
+                            <div class="layui-colla-content layui-show">没作业~</div>
+                        </div>
+
+                    </div>
+
+                    <script>
+                        //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
+                        layui.use('element', function(){
+                            var element = layui.element;
+
+                            //…
+                        });
+                    </script>
+                </div></div>
+                <div class="layui-tab-item">3</div>
+                <div class="layui-tab-item">4</div>
+                <div class="layui-tab-item">5</div>
+                <div class="layui-tab-item">6</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        ©《数据结构》教学资源管理平台
+    </div>
+</div>
+
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>

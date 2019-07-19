@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>成绩录入-录入</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <script src="../layui.js"></script>
+    <script src="../jquery.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">数据结构资源管理平台</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="teacher_main.html">主页</a></li>
+            <li class="layui-nav-item"><a href="teacher_publish_experiment.html">发布实验</a></li>
+
+
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;" id="myselfid">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    腰果
+                </a>
+                <script>
+                    document.getElementById("myselfid").innerHTML = "学号" +
+                        sessionStorage.id;
+                </script>
+                <dl class="layui-nav-child">
+                    <dd><a href="person.html">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="login.html">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item">
+                    <a class="" href="teacher_update_resource.html">数据结构资源</a>
+                </li>
+                <li class="layui-nav-item"><a href="teacher_experiment.html">课程实验</a></li>
+                <li class="layui-nav-item"><a href="teacher_question.html">网上答疑</a></li>
+                <li class="layui-nav-item"><a href="teacher_publish_task.html">作业区</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <h2>实验成绩</h2>
+                    <table class="layui-table" id="main">
+                        <colgroup>
+                            <col width="100">
+                            <col width="150">
+                            <col width="100">
+                            <col width="200">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>实验序号</th>
+                            <th>实验名称</th>
+                            <th>成绩</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    <br/>
+                    <h2>作业成绩</h2>
+                    <table class="layui-table" id="main2">
+                        <colgroup>
+                            <col width="100">
+                            <col width="150">
+                            <col width="200">
+                            <col width="150">
+                            <col width="100">
+                            <col width="100">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>作业序号</th>
+                            <th>布置日期</th>
+                            <th>作业内容</th>
+                            <th>收回日期</th>
+                            <th>成绩</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        ©《数据结构》教学资源管理平台
+    </div>
+</div>
+
+<script>
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+        var loc = location.href;
+        var n1 = loc.length;//地址的总长度
+        var n2 = loc.indexOf("=");//取得=号的位置
+        var id = decodeURI(loc.substr(n2+1, n1-n2));
+        //录入实验成绩
+        $.ajax({
+            url:"/Experiment/selectMyExperiment",
+            type:'post',
+            dataType:'text',
+            data:{id:id},
+            success: function(data){
+                var obj = JSON.parse(data);
+                $("#main tbody").html("");
+                for(var i = 0;i < obj.length;i++){
+                    $("#main tbody").append('<tr><td>'+obj[i].id+'</td><td>'+obj[i].name+'</td><td> <input type="text" name="grade" required  lay-verify="required" placeholder="请输入成绩" autocomplete="off" class="layui-input"></td><td><a class="download" resname="'+obj[i].id+'" href="javascript:;">录入成绩</a></td></tr>');
+                };
+                element.render('collapse');
+                $(".download").on("click",function () {
+                    var a= $(this).parent().siblings().eq(2).children();
+                    var grade = $(this).parent().siblings().eq(2).children().val();
+                    var expid = $(this).attr("resname");
+                    $.ajax({
+                        url:"/Experiment/insertGrade",
+                        type:'post',
+                        dataType:'text',
+                        data:{id:id,grade:grade,expid:expid},
+                        success: function(data){
+                            console.log(id+grade+$(this).attr("resname"));
+                            if(data =="true") {
+                                a.attr("disabled","");
+                                alert("录入成绩成功");
+                            }
+                            else
+                                alert("录入成绩失败");
+                        }
+
+                    });
+
+                })
+            }
+        });
+        //录入作业成绩
+        $.ajax({
+            url:"/Task/selectMyTaskWithScore",
+            type:'post',
+            dataType:'text',
+            data:{id:sessionStorage.id},
+            success: function(data){
+                var obj = JSON.parse(data);
+                $("#main2 tbody").html("");
+                for(var i = 0;i < obj.length;i++){
+                    //console.log(obj[i].name);
+                    $("#main2 tbody").append('<tr><td>'+obj[i].id+'</td><td>'+obj[i].time_out+'</td><td>'+obj[i].content+'</td><td>'+obj[i].time_in+'</td><td> <input type="text" name="grade" required  lay-verify="required" placeholder="请输入成绩" autocomplete="off" class="layui-input"></td><td><a class="download" resname="'+obj[i].id+'" href="javascript:;">录入成绩</a></td></tr>');
+                };
+                element.render('collapse');
+                $(".download").on("click",function () {
+                    var a = $(this).parent().siblings().eq(4).children();
+                    var grade = $(this).parent().siblings().eq(4).children().val();
+                    var taskid = $(this).attr("resname");
+                    $.ajax({
+                        url:"/Task/insertGrade",
+                        type:'post',
+                        dataType:'text',
+                        data:{id:id,grade:grade,taskid:taskid},
+                        success: function(data){
+                            if(data =="true") {
+                                a.attr("disabled","");
+                                alert("录入成绩成功");
+                            }
+                            else
+                                alert("录入成绩失败");
+                        }
+
+                    });
+
+                })
+            }
+        });
+
+
+
+    });
+</script>
+
+
+</body>
+</html>

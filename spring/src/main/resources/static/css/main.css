@@ -1,0 +1,216 @@
+.layui-tab-title li{
+  margin: 0 10px;
+}
+.setitem dd a{
+  left: 18px;
+}
+.normalfile:bfeore{
+  padding: 5px;
+  content:"\e655";
+	font-family:layui-icon;  
+  color: #B41830
+}
+.searchfile:before{
+  padding: 5px;
+  content:"\e615";
+	font-family:layui-icon;
+  color: #810B80
+}
+//.layui-table-body .laytable-cell-1-0-0:before,.layui-table-body .laytable-cell-2-0-0:before,.layui-table-body .laytable-cell-3-0-0:before,.layui-table-body .laytable-cell-4-0-0:before,.layui-table-body .laytable-cell-5-0-0:before,.layui-table-body .laytable-cell-6-0-0:before{
+  padding-right: 5px;
+  content:"\e655";
+	font-family:layui-icon;  
+  color: #810B80
+}
+.search{
+  position: absolute;
+  right: 142px;
+  top: 17px;
+}
+.search input,.search button{
+   background: transparent;
+	border:none;
+	outline:none;
+  color: #fff;
+}
+.search {
+  background: #009688;
+	height:30px;
+  border-radius: 3px;
+}
+.search input {
+	width:50px;
+	transition:.3s ease;
+	float:right;
+	height:28px;
+	padding-left:8px;
+  padding-right: 30px;
+}
+.search input:focus{
+  width: 150px;
+}
+.search button {
+  height:30px;
+	//width:30px;
+	cursor:pointer;
+	position:absolute;
+	background:none;
+	right:10px;
+}
+.search button:before {
+	content:"\e615";
+	font-family:layui-icon;
+  font-size: 18px;
+	color:#FFF;
+}
+#uploadbtn{
+  position: absolute;
+  right: 48px;
+  top: 17px;
+  border-radius: 3px;
+}
+#upload-back{
+  position: absolute;
+  right: 48px;
+  top: 17px;
+  border-radius: 5px;
+}
+html {
+ background-color:#f2f2f2;
+ color:#666
+}
+.layadmin-header {
+ height:40px;
+ line-height:40px;
+ margin-bottom:0;
+ border-radius:0
+}
+.badgebkcolor{
+  background-color: #393D49!important;
+  left: 8px;
+}
+.side-backcolor{
+  background-color: #23262e!important;
+}
+.side-backcolor ul{
+  background-color: #23262e!important;
+  padding-bottom: 120px;
+}
+.layui-layout-admin .layui-logo {
+ box-shadow:1px 1px 2px 0 rgba(255,255,255,.04)
+}
+.layui-breadcrumb{
+  padding-left: 20px;
+}
+#courses dd a{
+  left: 18px;
+}
+#info {
+  right: 25px;
+}
+#ifnew{
+  top: 27px;
+  right: 12px;
+}
+#mainbody>div>.layui-card{
+  margin: 15px;
+  border:2px ;
+  border-radius:6px;
+}
+#mainbody>div>.layadmin-header{
+  margin: 3px;
+}
+#arc-list{
+  margin-top: 15px;
+}
+
+#mainbody{
+  width: 1184px;
+  overflow-y: scroll;
+}
+#mainbody .layui-card-body{
+  min-height: 340px;
+  margin-bottom: 10px;
+  padding-bottom: 120px;
+}
+.layui-upload{
+  padding-top: 20px;
+  padding-bottom: 200px;
+}
+.layui-upload button{
+  margin-left: 35px;
+}
+#username{
+  padding-right: 5px
+}
+#setinfodiv  form{
+  
+  float: left;
+  margin-top: 20px;
+}
+#setinfodiv img{
+ float: left;
+ width:250px;
+ height:250px;
+ margin-top: 30px;
+ margin-right:30px;
+ border-radius:50%;
+  cursor:pointer;
+}
+#msglist .layui-card-body{
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#msglist .layui-table-box a{
+  color: #625242;
+  cursor:pointer;
+}
+#msglist .layui-table-box a:hover{
+  color: #000
+}
+#msglist .layui-tab-content{
+  padding-top: 5px;
+}
+.msglistbutton{
+  padding-top: 15px;
+  padding-left: 10px;
+}
+#msgdetail>.layui-card-body{
+  padding: 5px 10px;
+}
+#msgdetail>.layui-card-body>.layui-card>div>.layui-card-body{
+  min-height: auto;
+  padding-bottom: 40px;
+}
+.layuiAdmin-msg-detail h1 {
+ font-size:17px
+}
+.layuiAdmin-msg-detail .layui-card-header {
+ height:auto;
+ line-height:30px;
+ padding:15px
+}
+.layuiAdmin-msg-detail .layui-card-header span {
+ padding:0 5px;
+ color:#999
+}
+.layuiAdmin-msg-detail .layui-card-header span:first-child {
+ padding-left:0
+}
+.layuiAdmin-msg-detail .layui-card-body {
+ padding:15px
+}
+
+.layadmin-text p {
+ margin-bottom:10px;
+ text-indent:2em
+}
+.layadmin-text p:last-child {
+ margin:0;
+ padding-top: 30px;
+  color: #625252;
+}
+//高斯模糊
+-webkit-filter：blur(10px);
+filter:blur(10px);

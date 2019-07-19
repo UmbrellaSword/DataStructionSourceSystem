@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>注册</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <script src="../layui.js"></script>
+    <script src="../jquery.js"></script>
+    <link rel="stylesheet" href="../../css/login.css">
+    <link rel="stylesheet" href="../../css/admin.css">
+</head>
+<body>
+<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
+    <div class="layadmin-user-login-main">
+        <div class="layadmin-user-login-box layadmin-user-login-header">
+            <h2>《数据结构》资源管理平台</h2>
+            <p>为师生良心打造的交互平台</p>
+        </div>
+        <form class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-face-smile-b" for="LAY-user-login-id"></label>
+                <input type="text" name="id" id="LAY-user-login-id" lay-verify="id" placeholder="学号" class="layui-input layui-form-danger">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-name"></label>
+                <input type="text" name="name" id="LAY-user-login-name" lay-verify="name" placeholder="姓名" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-friends" for="LAY-user-login-name"></label>
+                <input type="text" name="classroom" id="LAY-user-login-classroom" lay-verify="name" placeholder="班级" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-read" for="LAY-user-login-major"></label>
+                <input type="text" name="major" id="LAY-user-login-major" lay-verify="major" placeholder="专业" class="layui-input layui-form-danger">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-username" ></label>
+                <select id="selteacher" name="teacherselected" >
+                </select>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-cellphone" for="LAY-user-login-cellphone"></label>
+                <input type="text" name="phone" id="LAY-user-login-cellphone" lay-verify="phone" placeholder="手机" class="layui-input layui-form-danger">
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-tree" for="LAY-user-login-email"></label>
+                <input type="text" name="email" id="LAY-user-login-email" lay-verify="email" placeholder="e-mail" class="layui-input layui-form-danger">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+                <input type="password" name="password" id="LAY-user-login-password" lay-verify="pass" placeholder="密码" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-repass"></label>
+                <input type="password" name="repass" id="LAY-user-login-repass" lay-verify="required" placeholder="确认密码" class="layui-input">
+            </div>
+
+            <div class="layui-form-item">
+                <input type="checkbox" name="agreement" lay-skin="primary" title="同意用户协议" checked="checked"><div class="layui-unselect layui-form-checkbox layui-form-checked" lay-skin="primary"><span>同意用户协议</span><i class="layui-icon layui-icon-ok"></i></div>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="LAY-user-reg-submit">注 册</button>
+            </div>
+            <div class="layui-trans layui-form-item layadmin-user-login-other">
+                <label>社交账号注册</label>
+                <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
+                <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
+                <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>
+
+                <a href="login.html"lay-href="/user/login" class="layadmin-user-jump-change layadmin-link layui-hide-xs">用已有帐号登入</a>
+                <a lay-href="/user/login" class="layadmin-user-jump-change layadmin-link layui-hide-sm layui-show-xs-inline-block">登入</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(LAY-user-reg-submit)', function(data1){
+            console.log("1111");
+            //layer.msg(JSON.stringify(data.field));
+            $.ajax({
+                url: "/Student/insertStudent",
+                type: 'post',
+                dataType: 'text',
+                data: $('.layui-form').serialize(),
+                success: function (data) {
+                    console.log(data);
+                    if(data==true){}
+                    else{alert("已存在！")}
+                }
+            });
+            return false;
+        });
+    });
+
+</script>
+
+<script>
+    //$('.teacher').empty()
+    $.ajax({
+        url:"/Teacher/selectTeacher",
+        type:'post',
+        dataType:'text',
+        success: function(data){
+            console.log(data);
+            var obj = JSON.parse(data);
+            console.log(obj);
+            $("#selteacher").empty();
+            console.log(obj.length +  " ");
+            //console.log("jjjj");
+            $("#selteacher").append('<option value='+ " " +'>'+'请选择一个老师'+'</option>');
+            for(var i = 0;i < obj.length;i++){
+                var value = obj[i].name;
+                console.log(obj[i].name +  " ");
+                $("#selteacher").append('<option value='+ obj[i].id +'>'+ value +'</option>');
+            }
+        }
+
+    });
+</script>
+
+</body>
+</html>

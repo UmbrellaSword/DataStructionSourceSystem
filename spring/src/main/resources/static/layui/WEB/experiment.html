@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>课程实验</title>
+  <link rel="stylesheet" href="../css/layui.css">
+  <script src="../layui.js"></script>
+  <script src="../jquery.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">数据结构资源管理平台</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="main.html">主页</a></li>
+      <li class="layui-nav-item"><a href="selectedexperiment.html">已选实验</a></li>
+
+      <li class="layui-nav-item"><a href="download.html">下载资源</a></li>
+      <li class="layui-nav-item">
+        <a href="javascript:;">其它</a>
+        <dl class="layui-nav-child">
+          <dd><a href="">邮件管理</a></dd>
+          <dd><a href="">消息管理</a></dd>
+          <dd><a href="">授权管理</a></dd>
+        </dl>
+      </li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;" id="myselfid">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          腰果
+        </a>
+        <script>
+            document.getElementById("myselfid").innerHTML = "学号" +
+                sessionStorage.id;
+        </script>
+        <dl class="layui-nav-child">
+          <dd><a href="person.html">基本资料</a></dd>
+          <dd><a href="">安全设置</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="login.html">退出</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item"><a href="resource.html">数据结构资源</a></li>
+        <li class="layui-nav-item"><a href="experiment.html">课程实验</a></li>
+        <li class="layui-nav-item"><a href="question.html">网上答疑</a></li>
+        <li class="layui-nav-item"><a href="task.html">作业区</a></li>
+        <li class="layui-nav-item"><a href="test.html">习题自测</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+      <div class="layui-collapse">
+
+      </div>
+
+    </div>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    ©《数据结构》教学资源管理平台
+  </div>
+</div>
+
+<script>
+//JavaScript代码区域
+
+layui.use('element', function(){
+    var element = layui.element;
+    $.ajax({
+        url:"/Experiment/selectExperiment",
+        type:'post',
+        dataType:'text',
+        success: function(data){
+            console.log(data);
+            var obj = JSON.parse(data);
+            $(".layui-collapse").html("");
+            for(var i = 0;i < obj.length;i++){
+                //console.log(obj[i].name);
+                $(".layui-collapse").append('<div class="layui-colla-item">'+' <h2 class="layui-colla-title" >' + obj[i].name +'</h2>'
+                    + '<div class="layui-colla-content layui-show">' + obj[i].summery + '<br/>\n' +
+                    '            <hr class="layui-bg-gray">\n' +
+                    '            <button expername="'+ obj[i].name +'" style="display:block;margin:0 auto" class="layui-btn">\n' +
+                    '              <i class="layui-icon">&#xe608;</i> 添加\n' +
+                    '            </button></div></div>');
+            };
+            element.render('collapse');
+            $(".layui-collapse button").on("click",function () {
+                $.ajax({
+                    url:"/Experiment/insertMyExperiment",
+                    type:'post',
+                    dataType:'text',
+                    data:{name:$(this).attr("expername"),stu_id:sessionStorage.id},
+                    success: function(data){
+                        if(data =="true"){}
+
+                        else{}
+
+                    }
+                });
+            })
+        }
+    });
+});
+
+
+
+</script>
+</body>
+</html>
